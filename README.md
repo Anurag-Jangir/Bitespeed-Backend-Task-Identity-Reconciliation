@@ -57,12 +57,6 @@ Content-Type: application/json
 
 ---
 
-## 🧪 Status
-
-✅ Deployed and working as expected.
-
----
-
 ## 🛠 Tech Stack
 
 - Node.js

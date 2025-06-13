@@ -5,6 +5,7 @@ exports.identify = async (req, res) => {
   try {
     const { email, phoneNumber } = req.body;
 
+    // missing parameters check
     if (!email && !phoneNumber) {
       return res.status(400).json({ error: 'email or phoneNumber is required.' });
     }
@@ -16,6 +17,7 @@ exports.identify = async (req, res) => {
       order: [['createdAt', 'ASC']],
     });
 
+    // if not record found for the given phonenumber and email then create a new record
     if (matched.length === 0) {
       const newContact = await Contact.create({ email, phoneNumber });
       return res.json({
@@ -45,6 +47,7 @@ exports.identify = async (req, res) => {
     const primary = related.find((c) => c.linkPrecedence === 'primary');
     const alreadyExists = related.some((c) => c.email === email && c.phoneNumber === phoneNumber);
 
+    // if there exist some entry with the given phonenumber or email then create a secondary record
     if (!alreadyExists) {
       await Contact.create({
         email,
